@@ -1,0 +1,24 @@
+<div class="container" th:replace="fragments/header :: header"></div>
+<div class="container">
+    
+    <div class="row">
+         <p style="font-family:Lucida Handwriting;font-size: 22px;font-weight: bold;margin-left:220px;">Movie Ticket</p>
+       <div class="col-md-4">
+       </div>
+        <div class="col-md-4">
+           
+            <p style="font-weight: bold;" th:text="${bookingDetails.showDetails.movieDetails.movieName}"> </p>
+            <p th:text="${bookingDetails.showDetails.showDay}+''+${bookingDetails.showDetails.showTime}"> </p>
+            <p th:text="${bookingDetails.showDetails.cinemaDetails.address}"></p>
+            <p>Seats : <span th:text="${bookingDetails.bookedSeats}"></span></p>
+            <p>Amount paid:Rs. <span th:text="${bookingDetails.amountPaid}"></span></p>
+            <p><button class="btn btn-default">Print</button></p>
+           
+        </div>
+         
+        
+    </div>
+    
+    
+</div>
+ 

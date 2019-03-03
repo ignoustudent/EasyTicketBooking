@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="container" th:replace="fragments/header :: header"></div>
+<head>
+  <title>Easy Ticket Booking</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <style>
+      .top{height:100px;background-color: #66ccff;}
+      .box{margin-top:50px;margin-left:50px;}
+  </style>
+</head>
+    <div class="container-fluid">
+        <div class="top text-center h1"><div class="row" style="height:25px;"></div>
+            <p>Secure Pay</p></div>
+        <div class="row" style="margin-top:-10px;">
+            <div class="col-md-3">
+                <table class="table table-bordered text-center">
+                    <tr><td><a href="#">Debit/Credit Card</a></td></tr>
+                    <tr><td><a href="#">Netbanking</a></td></tr>
+                    <tr><td><a href="#">Mobile Wallets</a></td></tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+			<form action = "/etb/booking/book" method = "post">
+                <div class="box">
+                    <p class="h4">Please fill card details</p>
+                    <p>Card Number</p>
+                    <div class="row">
+                        <div class="col-sm-6"><input th:type = "number" class="form-control" type="text"  name="cardnumber" placeholder="XXXX  XXXX  XXXX    XXXX" maxlength="16"></div>
+                        
+                    </div><br>
+                    <p>Expiry</p>
+                    <div class="row">
+                                <div class="col-sm-2">
+                                    <select name="ExMonth" class="form-control">
+                              <th:block th:each="i: ${#numbers.sequence(1, 12)}">
+                                        <option th:value= "${i}" th:text="${i}"></option> 
+                             </th:block>
+                            </select>
+                                </div>
+                        <div class="col-sm-3">
+                                    <select name="ExMonth" class="form-control">
+                                   <th:block th:each="i: ${#numbers.sequence(2018, 2024)}">
+                                        <option th:value= "${i}"  th:text="${i}"></option> 
+                              </th:block>
+                            </select>
+                                </div>
+                    </div><br>
+                    <p>CVV</p>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <input type="password" class="form-control" placeholder="xxx">
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary">Pay</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-warning">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+				</form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    
+    </script>
+ <div lang="en" th:replace="fragments/footer :: footer"> </div>

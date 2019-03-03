@@ -1,0 +1,73 @@
+<div th:fragment="header">
+<head>
+  <title>Easy Ticket Booking</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <link th:href="@{/css/bootstrap.min.css}"  rel="stylesheet" type="text/css"  />
+  <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+     /* margin-bottom: 50px;*/
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+      height:180px !important;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="">
+  <div class="container text-center">
+    <h1>Easy Ticket Booking</h1>      
+    <p>Online Movie Show Booking</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+        <a class="navbar-brand" th:href="@{/}">Easy Ticket Booking</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+          <li class="active"><a th:href="@{/}">Home</a></li>
+        <li><a href="nowshowing.php">Now Showing</a></li>
+        <li><a href="comming.php">Comming Soon</a></li>
+        <li><a href="movies.php">Movies</a></li>
+        
+      </ul>
+        
+      
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> </a></li>
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+      
+        <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="signup.php"><span class="glyphicon glyphicon-registration-mark"></span> SignUp</a></li>
+      </ul>
+      
+        
+    </div>
+  </div>
+</nav>
+</div>

@@ -1,0 +1,30 @@
+<html>
+<div class="container" th:replace="fragments/header :: header"></div>
+<div>
+
+
+<th:block th:each="movie: ${movies}">
+<div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-success">
+          <div class="panel-heading"><a th:href ="@{'/movie/details/'+${movie.id}}" th:text="${movie.movieName}"></a></div>
+        <div class="panel-body">
+           <a th:href="@{'/movie/details/'+${movie.id}}">
+              <img th:src="@{'img/' + ${movie.movieName}+'.jpg'}" class="img-responsive" style="width: 100%" alt="Image">
+              </a>
+                </div>
+        <div class="panel-footer">
+            <!--<a href="book.php?id=<?php echo $row["m_id"]?>" class="btn btn-default">Book now</a>-->
+            <a th:href="@{/show/book}" class="btn btn-default" style ="background-color:#58a942b8;font-weight: bold" >Book now</a>
+          <!--  <a class="btn btn-default" href="details.php?m=<?php echo $row["title"]?>&id=<?php echo $row["m_id"]?>">See details</a>-->
+          <a class="btn btn-default" style ="background-color:#1947e285;font-weight: bold" th:href="@{'/movie/details/'+${movie.id}}">See details</a>
+        </div>
+      </div>
+    </div>
+</th:block>
+
+
+</div>
+<div lang="en" th:replace="fragments/footer :: footer"> </div>
+<body>
+<html>
