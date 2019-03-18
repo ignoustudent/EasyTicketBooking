@@ -3,11 +3,11 @@
  */
 package com.etb.config.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.etb.config.service.MovieService;
+import com.etb.config.model.User;
 
 /**
  * @author Rakesh Singh
@@ -17,4 +17,14 @@ import com.etb.config.service.MovieService;
 @Controller
 public class LoginController {
 
+	
+	@RequestMapping(value="/user/login")
+	private String loginPage(ModelMap model) {
+		
+		model.addAttribute("user", new User());
+		return "login";
+		
+	}
+	
+	
 }
