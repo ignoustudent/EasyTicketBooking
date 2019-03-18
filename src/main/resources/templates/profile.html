@@ -1,0 +1,154 @@
+<html>
+<div class="container" th:replace="fragments/header :: header"></div>
+<style>
+    .dp{
+        height:150px;
+        width:150px;
+    }
+ .dp { position: relative;}
+ .image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+.dp:hover .image {
+  opacity: 0.3;
+}
+
+.dp:hover .middle {
+  opacity: 1;
+}
+     .glyphicon-remove{color:red}
+      .glyphicon-ok{color:#00cc00}
+      .red{border:1px solid red;box-shadow:1px 1px 1px 1px #fca9a9;color:red}
+      .green{border:1px solid green;box-shadow:1px 1px 1px 1px  #99ff99;color:green}
+      .yellow{border:1px solid yellow;box-shadow:1px 1px 1px 1px #fbfbac;}
+</style>
+
+<div class="container ">
+    <div class="col-sm-2 ">
+        <div class="ffdp">
+            <img th:src="@{../img/user2-160x160.jpg}"  class="image img-thumbnail img-responsive">       
+                  
+        </div><br><br>
+        <div class="col-sm-12" style="position:initial">
+            <ul  class="list-unstyled">
+                <li class="h4"></li>                                           
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-8">
+    
+    <div th:if="${regStatus != null}" style="color:#00a65a;">
+							<h4 th:text="${regStatus}"></h4> 
+							</div>
+  <ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#profile">Profile</a></li>
+    <li><a data-toggle="pill" href="#bookingHistory">Booking History</a></li>
+    <li><a data-toggle="pill" href="#editProfile" onclick="f()">Edit Profile</a></li>
+    <li><a data-toggle="pill" href="#chngPasswd">Change Password</a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="profile" class="tab-pane fade in active">
+        <p class="h4" th:text="${user.firstName}+' '+${user.lastName}"> <i  class="glyphicon glyphicon-user"></i> </p>
+        <p class="h4" th:text = "${user.email}"><i  class="glyphicon glyphicon-envelope"></i></p>
+        <p class="h4" th:text = "${user.mobNumber}"> <i  class="glyphicon glyphicon-phone"></i> </p>
+    </div>
+    <div id="bookingHistory" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="editProfile" class="tab-pane fade">
+        <form th:action="@{/user/updateprofile}" method="POST" th:object="${user}">
+        <div class="row"><br>
+          <div class="col-sm-6">
+            <div class="col-sm-12 input-group"><span  class="input-group-addon" ><i  class="glyphicon glyphicon-user"></i></span>
+                <input class="form-control " type="text" th:field="*{firstName}" th:value="${user.firstName}"/></div><br>
+            <div class="col-sm-12 input-group"><span  class="input-group-addon" ><i  class="glyphicon glyphicon-envelope"></i></span>
+                <input class="form-control" disabled type="text" th:field="*{email}" th:value="${user.email}"/></div><br>
+            <div class="col-sm-12 input-group"> <span  class="input-group-addon" ><i  class="glyphicon glyphicon-phone"></i>+91</span>
+                <input class="form-control " type="text" th:field="*{mobNumber}" th:value="${mobNumber}"/></div><br>
+        </div>  
+         <div class="col-sm-6">
+             <div class="col-sm-12 input-group"><span  class="input-group-addon" ><i  class="glyphicon glyphicon-user"></i></span>
+                 <select id="gender" name="gender" class="form-control" value="<?php echo $gender?>">
+                     <option >Gender</option>
+                     <option id="Male" value="Male">Male</option>
+                     <option id="Female" value="Female">Female</option>
+                 </select></div><br>
+            <div class="col-sm-12 input-group"><span  class="input-group-addon" ><i  class="glyphicon glyphicon-calendar"></i></span>
+                <input class="form-control" type="date" name="bday" value="<?php echo $bday?>"/></div><br>
+            <div class="col-sm-12">
+                <input class=" btn btn-danger" type="submit"  value="Update"/></div><br>
+        </div>    
+     </div>
+        </form>
+     </div>
+    
+    
+      
+      
+      <div id="chngPasswd" class="tab-pane fade col-sm-6"><br>
+          <form method="post" action="chngpwd.php">
+      <div class="input-group"  data-toggle="tooltip" data-placement="top" title="Current Password">
+                 <span  class="input-group-addon" ><i  class="glyphicon glyphicon-lock"></i></span>
+             <input type="password" class="form-control" name="currentpassword"  required  placeholder=" Current Password....">
+             <span class="glyphicon glyphicon-ok form-control-feedback hidden" ></span>
+            </div><br>
+      <div class="input-group"  data-toggle="tooltip" data-placement="top" title="New Password">
+                 <span  class="input-group-addon pwd" ><i  class="glyphicon glyphicon-lock"></i></span>
+             <input type="password" class="form-control pwd" name="newpassword" id="pwd" required  placeholder=" New Password....">
+             <span class="glyphicon glyphicon-ok form-control-feedback hidden" id="p"></span>
+            </div><br>
+            <div class="input-group"  data-toggle="tooltip" data-placement="top" title="Confirm Password">
+             <span  class="input-group-addon pwd1" ><i  class="glyphicon glyphicon-lock"></i></span>
+              <input type="password" class="form-control pwd1" name="password1" id="pwd1" required placeholder=" Confirm Password....">
+           <span class="glyphicon glyphicon-ok form-control-feedback hidden" id="p1"></span>
+            </div><br>
+            <div class="input-group"  data-toggle="tooltip" data-placement="top" title="Verify">
+                <input type="submit" class="btn btn-danger form-control"  value="Verify">         
+            </div><br>
+          </form>
+            
+    </div>     
+      
+  </div>
+    </div>
+    <script>
+        
+$(document).ready(function(){
+   
+       $("#pwd").on("keypress",function(){
+         if($("#pwd").val().length <5){$(".pwd").removeClass("green yellow").addClass("red");
+              $("#p").removeClass("hidden glyphicon-ok").addClass("glyphicon-warning-sign");} 
+         else if($("#pwd").val().length <7){$(".pwd").removeClass("green red").addClass("yellow");
+              $("#p").removeClass("hidden glyphicon-ok").addClass("glyphicon-warning-sign");} 
+         else if($("#pwd").val().length <9){$(".pwd").removeClass("red yellow").addClass("green");
+              $("#p").removeClass("hidden glyphicon-warning-sign").addClass("glyphicon-ok");} 
+      });
+      $("#pwd1").on("keyup",function(){
+          if($("#pwd").val()!= $("#pwd1").val()){$(".pwd1").removeClass("green").addClass("red");
+              $("#p1").removeClass("hidden glyphicon-ok").addClass("glyphicon-remove");}               
+          else{$(".pwd1").removeClass("red").addClass("green");
+              $("#p1").removeClass("hidden glyphicon-remove").addClass("glyphicon-ok");
+             
+              }
+        });
+        
+    });
+    </script>   
+    </div>
+    <div lang="en" th:replace="fragments/footer :: footer"> </div>
