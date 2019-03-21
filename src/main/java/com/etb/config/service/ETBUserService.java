@@ -3,29 +3,20 @@
  */
 package com.etb.config.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.etb.config.exception.ETBBusinessLogicException;
 import com.etb.config.model.User;
-import com.etb.config.repo.ETBUserDao;
 
 /**
  * @author Rakesh Singh
  *
  */
-@Service
-public class ETBUserService {
+public interface ETBUserService extends UserDetailsService {
 
-	@Autowired
-	private ETBUserDao etbUserDao;
-	
-	public User register(User user) {
-		
-		return etbUserDao.save(user);
-	}
-
-	public User getUserById(Integer id) {
-		
-		return etbUserDao.findById(id).get();
-	}
+	public User register(User user) throws ETBBusinessLogicException;
+	public User getUserById(Integer id);
+	public User updatePassword(String email, String password);
+	public void update(User user);
+	public User getUserByEmail(String username);
 }

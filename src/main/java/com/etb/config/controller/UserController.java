@@ -3,6 +3,8 @@
  */
 package com.etb.config.controller;
 
+import java.util.Base64;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.etb.config.exception.ETBBusinessLogicException;
 import com.etb.config.model.User;
 import com.etb.config.service.ETBUserService;
 
@@ -23,6 +30,7 @@ import com.etb.config.service.ETBUserService;
  */
 
 @Controller
+@SessionAttributes({"loggedInUser"})
 public class UserController {
 
 	@Autowired
@@ -46,7 +54,13 @@ public class UserController {
 		log.info("############# UserController: saveUserDetails Start ################### ");
 		
 		log.info("User Name"+user.getFirstName());
-		User savedUser = etbUserService.register(user);
+		User savedUser = null;
+		try {
+			savedUser = etbUserService.register(user);
+		} catch (ETBBusinessLogicException e) {
+			log.error("Exception occurred while creating user");
+			
+		}
 		model.addAttribute("user",user);
 		redirectAttributes.addAttribute("regStatus","Hi "+user.getFirstName()+" you have been successfully registered with us");
 		redirectAttributes.addAttribute("registeredUserId",savedUser.getId());
@@ -71,6 +85,28 @@ public class UserController {
 	}
 	
 	
-	
+	@RequestMapping(value="/user/uploadimage", method=RequestMethod.POST)
+	public String upload(@RequestParam("uploadfile") MultipartFile uploadfile,ModelMap modelMap){
+		
+		log.info("HomeController.upload() upload start");
+		String base64Str = "";
+		log.info("uploading file :- {}",uploadfile.getOriginalFilename());
+		try{
+			String userRole = (String) modelMap.get("userRole");
+			User user = (User) modelMap.get("loggedInUser");
+			user.setImage(uploadfile.getBytes());
+			etbUserService.update(user);
+			base64Str =  new String(Base64.getEncoder().encodeToString(user.getImage()));
+			user.setBase64Image(base64Str);
+			modelMap.addAttribute("loggedInUser",user);
+			
+		}catch(Exception e){
+		
+			log.error("Error occurred while uploading file{}",e.getMessage());
+		}
+		
+		return "redirect:/admin/dashboard";
+		
+	}
 	
 }

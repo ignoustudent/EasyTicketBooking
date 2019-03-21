@@ -16,4 +16,7 @@ import com.etb.config.model.User;
 public interface ETBUserDao extends CrudRepository<User, Integer> {
 
 	
+	User getUserByEmail(String userName);
+
+	
 }

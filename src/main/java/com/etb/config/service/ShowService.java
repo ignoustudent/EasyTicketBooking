@@ -6,9 +6,9 @@ package com.etb.config.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.etb.config.dao.ShowRepository;
 import com.etb.config.model.MovieDetails;
 import com.etb.config.model.ShowDetails;
+import com.etb.config.repo.ShowRepository;
 
 /**
  * @author Rakesh Singh

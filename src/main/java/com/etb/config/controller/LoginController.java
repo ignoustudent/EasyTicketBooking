@@ -18,7 +18,7 @@ import com.etb.config.model.User;
 public class LoginController {
 
 	
-	@RequestMapping(value="/user/login")
+	@RequestMapping(value="/login")
 	private String loginPage(ModelMap model) {
 		
 		model.addAttribute("user", new User());

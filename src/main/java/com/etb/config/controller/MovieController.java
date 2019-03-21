@@ -5,7 +5,6 @@ package com.etb.config.controller;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,8 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.etb.config.model.MovieDetails;
 import com.etb.config.model.SeatDetails;
@@ -28,7 +30,7 @@ import com.etb.config.service.ShowService;
  *
  */
 @Controller
-@RequestMapping("/movie")
+@SessionAttributes({"loggedInUser"})
 public class MovieController {
 
 	private static final Logger log = LoggerFactory.getLogger(MovieController.class);
@@ -64,5 +66,13 @@ public class MovieController {
 		modelMap.addAttribute("clubSeatDetails",clubSeatDetails);
 		log.info("############# MovieController:movieDetails End #############");
 		return "details";
+	}
+	
+	//@RequestMapping(value="/admin/dashboard",method=RequestMethod.GET)
+	@RequestMapping(value = "/admin/regmovie", method=RequestMethod.GET)
+	public String addMoviePage(ModelMap model){
+		
+		model.addAttribute("movie", new MovieDetails());
+		return "addMovie";
 	}
 }
